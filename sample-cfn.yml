@@ -75,3 +75,24 @@ Resources:
     Properties:
       VpcId: !Ref vpc1
       DhcpOptionsId: !Ref dopt1
+
+  subnet1:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      CidrBlock: 10.1.1.0/24
+      AvailabilityZone: ap-northeast-1a
+      VpcId: !Ref vpc1
+      Tags:
+        - Key: Name
+          Value: sample-cfn-web-public-1a-subnet
+  mySubnetRouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref subnet1
+      RouteTableId: !Ref rt1
+  subnetacl1:
+    Type: 'AWS::EC2::SubnetNetworkAclAssociation'
+    Properties:
+      SubnetId: !Ref subnet1
+      NetworkAclId: !Ref nacl1
+
